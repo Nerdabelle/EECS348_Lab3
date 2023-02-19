@@ -71,7 +71,22 @@ int main()
 {
 	char *months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     char *smonths[] = {"December","November","July","October","September","June","August","March","February","May","April","January"};
-	float money[]= {23458.01, 40112.00,56011.85, 37820.88, 37904.67, 60200.22, 72400.31, 56210.89,  67230.84, 68233.12, 80950.34, 95225.22 };
+    float money[MONTHS];
+    double sales[MONTHS];
+    FILE *money_file = fopen("money.txt", "r");
+    if (money_file == NULL) {
+        printf("Error: could not open file 'money.txt'\n");
+        exit(1);
+    }
+    for (int i = 0; i < MONTHS; i++) {
+        fscanf(money_file, "%f", &money[i]);
+    }
+
+    fclose(money_file);
+    for (int i=0; i<MONTHS; i++){
+    	sales[i] = (double)money[i];
+    }
+
 	printf("Monthly sales report for 2022\n");
 	printf("Month     Sales\n");
 
@@ -84,7 +99,7 @@ int main()
 	printf("\n");
 
 
-    double sales[MONTHS] = {23458.01, 40112.00,56011.85, 37820.88, 37904.67, 60200.22, 72400.31, 56210.89,  67230.84, 68233.12, 80950.34, 95225.22 };
+    //double sales[MONTHS] = {23458.01, 40112.00,56011.85, 37820.88, 37904.67, 60200.22, 72400.31, 56210.89,  67230.84, 68233.12, 80950.34, 95225.22 };
 
     print_moving_averages(sales);
     printf("\nSales Report (Highest to Lowest): \n");
